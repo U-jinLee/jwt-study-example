@@ -54,7 +54,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             log.info("Login Success principalDetails Info = {}", principalDetails.getUser().getUsername());
 
             // 리턴될 때 authentication 객체가 session 영역에 저장된다 -> 로그인을 의미함
-            // 리턴의 이유는 버젼 관리를 security사 ㄷ신 해주기 때문에 편하려고 하는 거임
+            // 리턴의 이유는 버젼 관리를 security가 대신 해주기 때문에 편하려고 하는 거임
             // 굳이 JWT 토큰을 사용하면서 세션을 만들 이유가 없음, 단지 권한 처리 때문에 Session을 넣어 준다.
             // JWT
             return authentication;

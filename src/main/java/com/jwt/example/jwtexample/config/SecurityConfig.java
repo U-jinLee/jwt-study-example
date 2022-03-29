@@ -1,5 +1,6 @@
 package com.jwt.example.jwtexample.config;
 
+import com.jwt.example.jwtexample.entity.UserRepository;
 import com.jwt.example.jwtexample.jwt.JwtAuthenticationFilter;
 import com.jwt.example.jwtexample.jwt.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,8 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     private final CorsFilter corsFilter;
+    private final UserRepository userRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -25,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  * */
                 //.addFilterBefore(new MyFilter3(), SecurityContextPersistenceFilter.class) //이렇게 걸어도 되지만 다른 방법도 있다. MyFilter 클래스로 이동
                 .addFilter(new JwtAuthenticationFilter(authenticationManager())) //AuthenticationManager를 던져줘야 한다.
-                .addFilter(new JwtAuthorizationFilter(authenticationManager()))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository))
                 .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
